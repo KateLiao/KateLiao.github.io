@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Shopee业务调研分析报告Author: @Xiaoxiao Liao  Shopee在2015年成立于新加坡，其母公司SEA是领先全球的消费互联网企业，核心业务涵盖电子游戏、电子商务以及电子金融。Shopee于2016年开始在中国开展跨境电商业务。完整内容请点击简历中的链接查看。 从东南亚起家，随后Shopee逐步扩展至拉美，欧洲等地区，从宏观角度来看，得益于目标市场地区的社会人口结构及互联网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shopee业务调研分析">
+<meta property="og:url" content="http://example.com/2022/06/21/Shopee%E4%B8%9A%E5%8A%A1%E8%B0%83%E7%A0%94%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="九虎的田野调查">
+<meta property="og:description" content="Shopee业务调研分析报告Author: @Xiaoxiao Liao  Shopee在2015年成立于新加坡，其母公司SEA是领先全球的消费互联网企业，核心业务涵盖电子游戏、电子商务以及电子金融。Shopee于2016年开始在中国开展跨境电商业务。完整内容请点击简历中的链接查看。 从东南亚起家，随后Shopee逐步扩展至拉美，欧洲等地区，从宏观角度来看，得益于目标市场地区的社会人口结构及互联网">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/%E4%B8%9C%E5%8D%97%E4%BA%9A%E7%94%B5%E5%95%86%E5%B9%B3%E5%8F%B0%E5%88%86%E6%9E%90.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Shopee%E4%B9%B0%E5%AE%B6%E5%8A%9F%E8%83%BD%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Shopee%E5%8D%96%E5%AE%B6%E4%B8%AD%E5%BF%83%E7%BB%93%E6%9E%84.png">
+<meta property="article:published_time" content="2022-06-21T07:44:24.000Z">
+<meta property="article:modified_time" content="2022-06-21T07:53:30.238Z">
+<meta property="article:author" content="Calcifer Liao">
+<meta property="article:tag" content="调研结果">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/%E4%B8%9C%E5%8D%97%E4%BA%9A%E7%94%B5%E5%95%86%E5%B9%B3%E5%8F%B0%E5%88%86%E6%9E%90.png">
+
+<link rel="canonical" href="http://example.com/2022/06/21/Shopee%E4%B8%9A%E5%8A%A1%E8%B0%83%E7%A0%94%E5%88%86%E6%9E%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Shopee业务调研分析 | 九虎的田野调查</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">九虎的田野调查</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-主页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于我">
+
+    <a href="/about/" rel="section"><i class="fa fa-paw fa-fw"></i>关于我</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/21/Shopee%E4%B8%9A%E5%8A%A1%E8%B0%83%E7%A0%94%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/WechatIMG548.jpeg">
+      <meta itemprop="name" content="Calcifer Liao">
+      <meta itemprop="description" content="小名儿叫九虎">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九虎的田野调查">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Shopee业务调研分析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-21 15:44:24 / 修改时间：15:53:30" itemprop="dateCreated datePublished" datetime="2022-06-21T15:44:24+08:00">2022-06-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B0%83%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">调研</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Shopee业务调研分析报告"><a href="#Shopee业务调研分析报告" class="headerlink" title="Shopee业务调研分析报告"></a>Shopee业务调研分析报告</h1><p>Author: @Xiaoxiao Liao </p>
+<p>Shopee在2015年成立于新加坡，其母公司SEA是领先全球的消费互联网企业，核心业务涵盖电子游戏、电子商务以及电子金融。Shopee于2016年开始在中国开展跨境电商业务。<strong>完整内容请点击简历中的链接查看。</strong></p>
+<p>从东南亚起家，随后Shopee逐步扩展至拉美，欧洲等地区，从宏观角度来看，得益于目标市场地区的社会人口结构及互联网水平发展，以及疫情的催化，<strong>Shopee在过去的几年，无论是订单数量还是GMV都在迅猛增长</strong>。</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>订单总数</th>
+<th>订单增长率</th>
+<th>GMV</th>
+<th>GMV增长率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2019</td>
+<td>12 亿</td>
+<td></td>
+<td>176 亿USD</td>
+<td></td>
+</tr>
+<tr>
+<td>2020</td>
+<td>28 亿</td>
+<td>132.8%</td>
+<td>354 亿USD</td>
+<td>101.1%</td>
+</tr>
+<tr>
+<td>2021</td>
+<td>61 亿</td>
+<td>116.5%</td>
+<td>625 亿USD</td>
+<td>76.8%</td>
+</tr>
+</tbody></table>
+<p>同时，Shopee也在积极布局本地生活服务赛道，拓展外卖、出行、旅游机酒等业务，趁热打铁，让更多电商服务渗透用户的生活，形成一种新的生活方式。</p>
+<h1 id="Part-1-Shopee目标市场的宏观因素分析"><a href="#Part-1-Shopee目标市场的宏观因素分析" class="headerlink" title="Part 1 Shopee目标市场的宏观因素分析"></a>Part 1 Shopee目标市场的宏观因素分析</h1><h2 id="1-1-目标市场所在地区的社会结构及发展情况"><a href="#1-1-目标市场所在地区的社会结构及发展情况" class="headerlink" title="1.1 目标市场所在地区的社会结构及发展情况"></a>1.1 目标市场所在地区的社会结构及发展情况</h2><p>截至2022年3月，Shopee平台已覆盖15个站点，<strong>从人均消费能力层面来看，中国台湾站、新加坡站、马来西亚站、巴西站这四个站点是目前最大的蓝海市场</strong>，印尼站、越南站、菲律宾站未来增长潜力巨大。</p>
+<p><a target="_blank" rel="noopener" href="https://www.notion.so/91943e7a95e0426aadfaf598c9d9a573">Shopee业务已覆盖国家地区及未覆盖东南亚国家的人口及经济情况</a></p>
+<span id="more"></span>
+
+<h3 id="1-1-1-东南亚地区"><a href="#1-1-1-东南亚地区" class="headerlink" title="1.1.1 东南亚地区"></a>1.1.1 东南亚地区</h3><p>东南亚的十一个国家中，Shopee目前业务已覆盖国内生产总值量级超过百亿美元的6个国家，尚未覆盖经济总量较小，或发展较落后的5个国家。</p>
+<ul>
+<li><p><strong>人口结构</strong></p>
+<p>  从人口结构的角度来看，整个东南亚地区的人口规模已达到6.3亿，其中青年人口占60%，年龄中位数约为29岁，东南亚地区有着明显的消费潜力，同时，年轻化的人口结构也意味着市场对于新鲜事物的接受程度较高，有利于跨境电商的发展。</p>
+</li>
+<li><p><strong>互联网及电子商务渗透情况</strong></p>
+<p>  从互联网渗透率的角度来看，东南亚六国的互联网渗透率均超过75%，并且拥有较高的电子商务渗透率，在这些互联网用户中，每10人中有8人曾经在电商平台上有购物体验（src: e-Conomy SEA 2021）</p>
+</li>
+<li><p><strong>疫情带来的影响</strong></p>
+<p>  得益于互联网的普及以及疫情肆虐的催化，东南亚电子商务的新用户正在全速增长。自疫情开始，东南亚的电商新用户增加了6千万，而且增速还在增长，其中有2千万是在2021年的H1新增的。</p>
+<p>  而疫情前就已经使用电商平台的用户，在疫情开始后，平均比疫情前使用更多4种在线服务，使用的频率都有明显上升，其中使用频率增长最快的两类服务是购买日用杂货以及外卖服务。（src: e-Conomy SEA 2021）</p>
+<p>  从疫情开始到现在已经有2年有余，各式各样的电商服务已经逐渐渗透东南亚人民的日常，电子商务逐渐成为一种新的生活方式。</p>
+</li>
+<li><p><strong>社交媒体与数字运营</strong></p>
+<p>  而得益于移动设备的普及，东南亚已经成为世界上最大的移动设备和社交媒体用户的所在地，Facebook, Instagram, FB messenger, Youtube, Line, WhatsApp 是东南亚目前主流的社交媒体。移动互联网的高速发展将对电商行业的数字营销及广告行业持续带来增长助力，而且，社交媒体的高度渗透也让东南亚本土的KOL迅速崛起，东南亚强烈偏好KOL推荐种草的内容，据统计，在马来西亚和泰国，70%的Youtube青少年用户表示相对于明星，他们更愿意相信KOL的推荐（src: 2020东南亚电子商务市场洞察），直播带货模式也许能在东南亚掀起新一阵潮流。</p>
+</li>
+</ul>
+<h3 id="1-1-2-其他国家地区"><a href="#1-1-2-其他国家地区" class="headerlink" title="1.1.2 其他国家地区"></a>1.1.2 其他国家地区</h3><p>Shopee的业务目前也开始向欧洲及拉丁美洲扩张，已覆盖拉丁美洲6个国家。</p>
+<ul>
+<li><p><strong>拉美地区</strong></p>
+<p>  拉丁美洲的总人口约6.5亿，与东南亚的总人口相当，但是拉美的平均财富（人均加权GDP&#x3D;7400 USD）高于东南亚（人均加权GDP&#x3D;4900 USD），这意味着拉美人民有更高的购买力，这可能也是Shopee在拉美抽佣比例更高的原因之一。此外，拉丁美洲目前也处于电子商务的高速发展时期，据世界银行的报告，2020年整个拉丁美洲的互联网渗透率已达66%。</p>
+<p>  2019年在进入巴西市场以来，仅仅两年时间，Shopee就成为巴西下载量最大的购物应用程序，Shopee在巴西采用的策略与在东南亚的操作较为类似，重心放在本地化运营，配合游戏业务打法拉新转化，同时也签约家喻户晓的C罗作为代言人。Shopee虽然在拉丁美洲起势喜人，甚至在20年12月，巴西月活用户数量已经超过了Amazon巴西，但是相较于一些”地头蛇“，例如在拉美18个国家都有业务的Mercado Libre，Shopee要走的路还很长。</p>
+</li>
+<li><p><strong>欧洲地区</strong></p>
+<p>  2021年Shopee在欧洲也陆续开拓波兰、西班牙、法国三个国家的市场。对比东南亚，欧洲市场的用户对于电子商务以及跨境电商服务已经非常熟悉，对于中国的商品也是赞美有加：中国作为波兰最受欢迎的跨境市场，跨境网购中53％的商品都来自中国。根据欧盟委员会调查，90%的西班牙人口有过网购经历，71%的人口有过跨境电商购物经历，尤其是对中国网店偏好有加。在法国，据相关数据统计，法国每年有420万人网购中国商品，超过80%法国消费者表示对中国货的喜爱。</p>
+<p>  由于电子商务的兴盛，这三个国家的物流仓储体系的搭建已经非常成熟，这提高了消费者对于物流配送服务的要求，Shopee在站点刚上线的时候，通过与当地物流公司签订合作协议，同时为所有消费者提供免费的物流配送服务以及大折扣优惠券，保证优质配送服务的同时通过优惠政策来拉新。而事实证明这样的优惠效果确实显著，截至2021年10月19日，据App Annie数据，Shopee在波兰超过了Allegro等本地电商平台，位列安卓购物app中排名首位。西班牙Shopee在西班牙安卓购物app中也占领排名首位，击败了Shein、亚马逊和速卖通等。在电子商务发展较成熟的欧洲市场，用户在挑选平台的时候有更多的选择，全球电商引领者Amazon，阿里旗下的B2C跨境电商平台速卖通，本地电商平台Allegro,Wallapop，以及时尚服饰细分独立站Shein等。</p>
+<p>  <strong>但是，法国站上线试运营4个月后，Shopee在3月6日关停法国站点，</strong>官方通报上说明的原因是：Shopee基于审慎、高效的资源分配考量作此调整，为商家、消费者和广大社区提供最大价值。法国是欧洲第二大电子商务市场，在法国最受欢迎的电商购物平台是Amazon，第二受欢迎的平台是法国本地平台Cdiscount。在西班牙和波兰，Shopee的下载量都能达到购物应用的第一位，而在法国Shopee则表现一般。</p>
+<p>  要想在欧洲市场站稳脚跟，Shopee需要不断通过精细化运营以及差异化服务来留存通过优惠活动拉新留存下来的用户并持续增长，并且要控制好补贴力度，缩减运营成本。</p>
+</li>
+<li><p><strong>中国台湾</strong></p>
+<p>  此外，在台湾地区，Shopee在2015年时在台湾上线“虾皮拍卖”，进军台湾C2C电商市场，主打“随拍即卖”。在2017年Shopee推出“虾皮商城”，抢占B2B2C商机，并在同年八月，将“虾皮拍卖”升级为”虾皮购物“，在2018年，Shopee在台湾的下载量超过1800万，成为台湾最受欢迎的移动购物平台。台湾省市场的用户对于电商服务已经非常熟悉，在2019年，70%的台湾消费者已经有过网上购物的经历。台湾Shopee的用户中，大于60%的用户为女性用户且年龄集中在20-39岁，这也能反映在台湾站点的销售类目占比上，美妆保健与居家生活类商品以及女性衣着品类的销售额及销量在台湾站点排名靠前。台湾的物流渠道很发达，同时台湾地区的便利店非常多，Shopee在台湾的终端配送方式支持店配和宅配模式，同时支持货到付款，全方位满足买家的配送和支付需求。</p>
+</li>
+</ul>
+<blockquote>
+<p><strong>可能面临的挑战</strong></p>
+<p>商业扩张的足迹已遍布全球，在这期间Shopee也面临一些因为地理文化包括区域发展的差异性而出现的问题，Shopee需要投入大量的人力去运作每一个地区的本地化运营及营销活动，此外，Shopee目前主要专注于低线城市的消费者，低线城市意味着物流仓储等基础设施的不成熟，物流配送支出也可能会掣肘Shopee的财务表现。</p>
+</blockquote>
+<h1 id="Part-2中国跨境电商出口的现状及相关政策"><a href="#Part-2中国跨境电商出口的现状及相关政策" class="headerlink" title="Part 2中国跨境电商出口的现状及相关政策"></a>Part 2中国跨境电商出口的现状及相关政策</h1><h2 id="2-1-疫情之后的跨境电商现状"><a href="#2-1-疫情之后的跨境电商现状" class="headerlink" title="2.1 疫情之后的跨境电商现状"></a>2.1 疫情之后的跨境电商现状</h2><p>新冠肺炎疫情给传统的国际贸易带来了很大的冲击，而由于跨境电商作为安全的居家购物方式，在整体进出口贸易萎靡的时期，逆流而上，海外消费者的线上购物需求带动了我国出口跨境电商的增长。以2020年第一季度海关跨境电商管理平台数据为例，外贸整体进出口水平下降6.4%的大背景下，跨境电商进出口却逆势增长34.7%。</p>
+<p>由于疫情的有效控制让工厂、物流能够及时复工，我国在跨境电商行业出口占据主导地位，据国家海关初步统计，**2020年我国跨境电商进出口总额达1.69万亿元，比19年增长31.1%<strong>，其中，</strong>出口1.12万亿元，增长40.1%**；进口0.57万亿，增长16.5%。</p>
+<p>跨境电商不是单个企业的单打独斗，而是一整个生态系统，系统内包括：生产制造企业、出口商（电商平台、独立站点）、金融支持企业、国内保税区、海外仓、物流、推广营销，以及商务、海关、自贸区、跨境电商综试区等政府部门。</p>
+<h2 id="2-2-2020年中国跨境电商优惠政策"><a href="#2-2-2020年中国跨境电商优惠政策" class="headerlink" title="2.2 2020年中国跨境电商优惠政策"></a>2.2 2020年中国跨境电商优惠政策</h2><ol>
+<li><p><strong>国务院增设跨境电商综试区</strong></p>
+<p> 到2020年4月27日，国务院已批复总共五批跨境电商综试区，总共达到105个电商综合试验区，地域覆盖了30个省。</p>
+<p> 跨境电商综合试验区对行业的发展起到了积极的作用：（1）为企业减税：在试验区内的企业零售出口享有税收优惠政策；（2）通过线上综合服务平台促进业务“阳光化”发展：加强线上监管，优化数字服务，整合跨境电商信息，便于银行审核业务真实性，促进跨境电商“阳光化”收款。（3）利于生态发展：设定综合试验区后，将汇聚各类型各职能的跨境电商企业，实现生产要素和产业聚集，提供区域生态圈综合配套支持。</p>
+</li>
+<li><p><strong>商务部出台稳外贸政策</strong></p>
+<p> 商务部在20年下达了稳定外贸，鼓励跨境电商发展的重要通知，其中核心举措有：（1）持续完善政策体系；（2）支持探索路径办出特色；（3）鼓励企业创新商业模式，扩大出口信贷投放；（4）推进高质量海外仓的建设；（5）积极深化国际合作；</p>
+</li>
+<li><p><strong>海关总署出台跨境电商新的监管措施</strong></p>
+<p> 考虑到疫情导致的物流受阻、退换货和清关困难等问题，海关总署在20年3月发布公告，帮助优化跨境电商零售进口商品退货监管流程，帮助企业积极应对疫情影响。此外，在20年6月，海关总署在北京、天津等个城市新增22个海关试点，并新增9710（B2B）、9810（B2B出口海外仓）监管代码，试点企业可以使用“一次登记、一点对接、优先查验、允许转关、便利退货”等通关便利措施。</p>
+</li>
+<li><p><strong>多部委发布跨境电商支持政策</strong></p>
+<p> 财政部、税务总局提高部分产品出口退税率；国家外汇管理局发布通知帮助拓宽贸易新业态结算渠道；中国人民银行与发改委、商务部、国资委、银保监会、外汇局等六部委联合发布通知，推动跨境人民币结算的流程简化，优化跨境人民币投融资管理。</p>
+</li>
+</ol>
+<h2 id="2-3-中国跨境电商出口面临的问题"><a href="#2-3-中国跨境电商出口面临的问题" class="headerlink" title="2.3 中国跨境电商出口面临的问题"></a>2.3 中国跨境电商出口面临的问题</h2><p>即使我国政府为了稳住外贸为跨境电商提供了很多政策扶持和优惠，我国的跨境电商出口仍然会受到很多时代及国际关系因素的影响，<strong>以下几点是跨境电商出口会面对的主要问题</strong>：</p>
+<ol>
+<li><p><strong>国际新发展格局下，跨境出口电商环境的不确定性在增加</strong></p>
+<ol>
+<li>新冠肺炎的蔓延的影响：疫情导致的经济萧条将通过需求端影响出口规模；疫情也提高了跨境物流的检验检疫成本，降低通关效率</li>
+<li>万国邮联改革方案对物流成本的影响：新的国际终端非改革方案推高了我国跨境电商物流成本</li>
+<li>欧盟征收数字税；</li>
+</ol>
+</li>
+<li><p><strong>我国跨境出口企业能级需要提升，产品同质性较普遍</strong></p>
+<ol>
+<li>创新能力弱，产品同质化程度高：出口电商品类大多以服装、家用电器等生活用品为主，科技含量低，商品同质化严重导致议价能力弱，利润空间较小。</li>
+<li>知识产权意识薄弱：不重视知识产权可能导致侵权现象出现，影响出口商家信誉，此外，由于对品牌知识产权的轻视，导致可能出现品牌被抢注的情况</li>
+<li>海外仓能级较低，服务功能可提升的空间大：目前我国的海外仓大部分仅有存储功能，在售后维修、市场分析、资源整合、拆包拼装等方面十分薄弱。</li>
+</ol>
+</li>
+<li><p><strong>跨境电商监管模式需要继续完善</strong></p>
+<ol>
+<li>“无票免征”政府覆盖范围有限</li>
+<li>外汇监管较困难：跨境电商涉及的海关、税务、物流、金融机构等不同参与方之间的信息共享程度不高，这会影响交易真实性审核的效率，影响最后的出口汇兑业务。</li>
+<li>海关监管中的风险识别问题仍然存在</li>
+<li>偷税漏税问题：监管技术落后，导致偷税漏税现象严重</li>
+</ol>
+</li>
+<li><p><strong>跨境电商统计机制不健全，无法反映我国跨境电商出口的真实情况</strong></p>
+<ol>
+<li>大量数字内容等服务贸易不在统计范畴内</li>
+<li>现有统计制度远滞后于跨境电商发展的实际需求</li>
+</ol>
+</li>
+<li><p><strong>数据本地化存储将限制跨境数据流动，抑制跨境电商新模式</strong></p>
+<p> 我国数据本地化存在原则会直接影响跨境数据自由流动，给数据交易带来很大的不便。</p>
+</li>
+</ol>
+<h1 id="Part-3-业务模式及竞品分析"><a href="#Part-3-业务模式及竞品分析" class="headerlink" title="Part 3 业务模式及竞品分析"></a>Part 3 业务模式及竞品分析</h1><ul>
+<li><p><strong>C2C Marketplace平台模式</strong></p>
+<p>  Shopee在刚刚成立的时候，主打的是C2C的大卖场模式，Shopee鼓励卖家多上架商品，店铺内不要局限于单个品类，通过快速扩充SKU来响应市场买家的需求。在这个时期，Shopee是一个轻资产形式的平台，不需要担心仓储和物流的工作，他们只需要与第三方物流合作即可。</p>
+</li>
+<li><p><strong>B2C 模式</strong></p>
+<p>  在2016年底，Shopee也开始B2C业务的拓展，并推出了Shopee Mall,吸引品牌卖家入驻。开展B2C模式有几个好处：（1）可以扩展平台的产品覆盖率，有很多跨境电商公司有自己稳定的产品货源和供应链，吸引他们入驻有助于平台商品生态的发展；（2）引入品牌方，市场的消费者也会成长，在发展了一定时间后，消费者也将倾向于去更加专业更加垂直的店铺去满足购物需要。引进品牌方也有助于提升买家的复购率。（3）减少并控制物流成本：在2017年，Lawrence Cheok(senior research manager at IDC Singapore)就曾指出 “为了维持物流成本，Shopee将不得不转向B2C模式。根据他们的数据，我们估计他们的平均订单价值(AOV)在15美元左右。这使得在不降低交易量的情况下开始向C2C卖家收取运费成为一个挑战。下一个最佳举措是转向B2C，通过品牌产品提高AOV，并通过广告盈利。”</p>
+</li>
+</ul>
+<h2 id="3-1-Shopee的盈利渠道分析"><a href="#3-1-Shopee的盈利渠道分析" class="headerlink" title="3.1 Shopee的盈利渠道分析"></a>3.1 Shopee的盈利渠道分析</h2><p>Shopee，就像所有其他电子商务平台一样，作为卖家买家之间的中介，主要是靠向卖家收取交易手续费、佣金，提供广告服务以及一些其他的收费服务来营收。以下是Shopee的主要营收渠道：</p>
+<ol>
+<li><p><strong>市场佣金(marketplace commission)</strong></p>
+<p> Shopee营收很大一部分来源于佣金，每当卖家卖出一件商品，Shopee都能获得一些佣金。Shopee作为在线购物平台，有负责订单和收集款项的义务，此外，Shopee还设计了大量的features来促进买家下单，促进平台的交易繁荣，实现多赢。市场上的有效佣金率在 1% 到 2% 之间， 通过 Shopee Mall 进行的销售佣金可高达 6%。</p>
+</li>
+<li><p><strong>交易服务费(transaction fees)</strong></p>
+<p> Shopee 在市场佣金的基础上收取交易费（约 2%），以补偿服务提供商的支付网关费用（如Mastercard或Visa）。交易费用适用于通过公司分期付款计划进行的日常交易和付款。</p>
+</li>
+<li><p><strong>广告费(advertising)</strong></p>
+<p> 卖家可以为自己的产品或店铺购买广告获得更多曝光，购买的广告有三条独立的展示渠道：（1）产品搜索结果；（2）店铺搜索结果；（3）探索发现Feed流；</p>
+<p> 卖家购买了广告之后，每一次买家点击广告(CPC)，Shopee都能获得一点广告收入。</p>
+</li>
+<li><p><strong>物流服务(fulfillment services)</strong></p>
+<p> Shopee自建的SLS让卖家能够将货物直接发到指定仓库，之后的跨境物流及末端配送将由SLS负责。Shopee将对每个需要存储或配送的商品向卖家收取一定的服务费， 费用根据包裹的大小和重量而定。</p>
+</li>
+<li><p><strong>餐厅外卖佣金及配送费(restaurant commission &amp; delivery fees)</strong></p>
+<p> 2015年SEA集团在越南投资了本地的外卖与餐厅预订平台Foody，并在同年推出及时配送服务deliveryNow，后来演变成本地外卖平台Now。2017年，SEA正式收购Now，为正式进军外卖市场做好铺垫。2020年底，Shopee旗下的外卖平台ShopeeFood在印尼开启。而后在21年扩张至马来西亚市场以及泰国市场。ShopeeFood在完成外卖订单时抽取部分佣金，并收取一些配送服务费。</p>
+</li>
+<li><p><strong>支付服务费(payment fees)</strong></p>
+<p> Shopee在2019年开展电子钱包业务，名为ShopeePay，买家可以使用ShopeePay在Shopee中购物，或者在外卖平台上下单，同时也可以在其他任何支持ShopeePay的商家那里消费。支持ShopeePay的卖家和商家需要付一些支付服务费用。</p>
+</li>
+</ol>
+<h2 id="3-2-在东南亚的跨境电商竞争格局"><a href="#3-2-在东南亚的跨境电商竞争格局" class="headerlink" title="3.2 在东南亚的跨境电商竞争格局"></a>3.2 在东南亚的跨境电商竞争格局</h2><p>根据iPrice2020年Q3的商务报告显示，Shopee已经超过Lazada成为东南亚最受欢迎的电商购物平台，在月活、下载量等数据上全面领先Lazada。</p>
+<h3 id="3-2-1-与Lazada的竞争，Shopee的突击之路"><a href="#3-2-1-与Lazada的竞争，Shopee的突击之路" class="headerlink" title="3.2.1 与Lazada的竞争，Shopee的突击之路"></a>3.2.1 与Lazada的竞争，Shopee的突击之路</h3><p>Shopee和Lazada在初期最明显的差异在于两者侧重的电商模式不一样，Shopee主打C2C平台模式，而Lazada则专注于B2C服务品牌和大卖家的模式。而在几年之后，Shopee逐渐的扩张到B2C领域，吸引能够提供优质服务和产品品质的品牌卖家入驻，而Lazada也有了自己的C2C Marketplace，希望能够带来供给侧卖家数量的快速扩张。两者的业务模式在竞争中变得有一些相似。</p>
+<p>Shopee在超车的过程中，在供给和需求两侧采取的策略和实施路径都非常的清晰且命中东南亚电商的痛点：</p>
+<ul>
+<li><p>买家侧策略</p>
+<p>  （1）为了解决东南亚电商的支付和物流痛点问题，Shopee自建电子钱包ShopeePay和SLS来满足买家的需求，改善购物体验。</p>
+<p>  （2）东南亚地区买家大多属于价格敏感型用户，且电商渗透率还有很大的增长空间，Shopee投入大量的营销费用以及补贴，提升曝光及新用户下单转化率。同时，Shopee还搭建了购物社区，并开展游戏化运营，将一些补贴机制配合游戏玩法落地到购物应用中，提升用户的使用黏性，同时能够给用户发放补贴。</p>
+</li>
+<li><p>卖家侧策略</p>
+<p>  为了吸引不同的卖家入驻平台，从供给侧夯实基础，<strong>Shopee为跨境电商卖家提供一站式服务</strong>：</p>
+<ol>
+<li>对接主流ERP平台，卖家可以高效管理商品及订单</li>
+<li>提供卖家中心数据分析平台，帮助卖家进行批量上传商品、追踪订单、统计销售情况等</li>
+<li>提供小语种客服服务，对于小语种国家，Shopee为卖家提供客服团队（收费），可以帮助卖家更好的与买家沟通并提高转化率。</li>
+<li>可以对接多种支付平台</li>
+<li>提供SLS跨境物流服务</li>
+<li>提供市场周报，帮助卖家了解各站点的买家需求，周报包含近期搜索量较大的关键词、热门标签、近期活动等数据</li>
+<li>提供卖家培训和商家社区建设，卖家可以在Shopee大学中获取在线培训资料，也能够与其他卖家进行交流。</li>
+</ol>
+</li>
+</ul>
+<p>Shopee在供给需求两端都做了大量的工作，强化了平台在买卖双方的地位，这些是Shopee能够在Lazada虎口夺食的基础。此外，Shopee的崛起其实与Lazada本身也有很大的关联：</p>
+<ol>
+<li><p><strong>阿里收购Lazada</strong></p>
+<p> 2016年，阿里通过投资控股2012年在新加坡成立的Lazada(2012年由德国孵化器公司Rocket Internet孵化)进军东南亚的电子商务市场。Lazada在初期专注于印尼市场，印尼人口众多，可谓拿下印尼就拿下了半个东南亚。在当时，成立于2015年的Shopee还处于发展的初期，而Lazada已成为当地最大的电子商务平台。市场份额和业务规模的快速扩张也引起了一些问题，在一些促销活动中，由于仓库整合问题，缺货和延迟交货的情况变得常见。</p>
+<p> 在2017年，菜鸟希望建造一个1万平方公尺的仓库，而Lazada希望首先尝试建一个5000平方公尺子的仓库。而同年，阿里希望能够讲更多国际大牌带到Lazada，而Lazada当地员工觉得这些品牌的价格超过当地人的消费水平，当地人可能不会接受。由于这些经营方针上的冲突，阿里决定进行Lazada的组织架构调整。因此，在18年阿里完成收购Lazada后，Lazada的重心放在了内部组织调整和清理的事务上。<strong>这次组织架构的调整有两个非常明显的影响：（1）阿里巴巴的数百名中层管理人员被分配到Lazada的各个岗位中，很多欧洲员工也因此离开Lazada；（2）Lazada的新卖家后台可以说是直接照搬了淘宝的后台功能，新旧版本的差异提高了东南亚卖家的学习门槛。</strong></p>
+<p> 当Lazada在进行内部调整、产品升级时，运营的脚步不可避免的慢了下来，这给Shopee的崛起知道了一些机会。</p>
+</li>
+<li><p><strong>Shopee抓住弯道超车的机会</strong></p>
+<p> 据了解，Shopee的CEO Chris Feng(冯陟旻)离开麦肯锡后加入了Rocket Internet，并负责Lazada的跨境业务。在2014年，Chris带着一支团队从Lazada跳槽到Garena（即SEA的前身），并成立手机游戏部门，一年后与SEA一起创办了Shopee。得益于在Lazada时期积累的经验和人脉，Chris敏锐的察觉到了Lazada在2018年的混乱，抓住了扩张机会。<br> Shopee与Lazada一样，在扩张初期积极的在整个东南亚地区积极投放、曝光，并在各地区的公车站和高速公路上贴满广告，也请了各地区家喻户晓的代言人。</p>
+<p> 此外，在选品方面，充分了解了东南亚地区，尤其是印尼这个大市场的买家对于轻工业制品，如日用品、玩具、电子3C以及美妆类产品的需求之后，Shopee在中国邀请此类产品的卖家入驻，并花费大量时间进行协商议价，从供给侧保证低价和稳定的货源。</p>
+<p> 东南亚电商的一个难题是物流建设落后，货品运输时间长。Shopee为了保证市场的扩张速度不受影响，在初期靠着大量的补贴，提供免费送货服务，来换取流量和订单量。Shopee的投资也促进了东南亚物流的发展。补贴也不是一直持续的，例如在台湾站点，Shopee已经在用户量稳定后停止了补贴，并开始盈利。</p>
+</li>
+</ol>
+<h3 id="3-2-2-不同地区的竞争情况"><a href="#3-2-2-不同地区的竞争情况" class="headerlink" title="3.2.2 不同地区的竞争情况"></a>3.2.2 不同地区的竞争情况</h3><p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/%E4%B8%9C%E5%8D%97%E4%BA%9A%E7%94%B5%E5%95%86%E5%B9%B3%E5%8F%B0%E5%88%86%E6%9E%90.png"></p>
+<p>根据TMO整理的东南亚五国的电商平台Top3情况可以看到，截止到2021年Q3，从月均点击量的角度来看，Shopee在每一个国家的流量都已超过Lazada。除了需要小心Lazada的反超之外，在越南和印尼，两国的本地电商平台Giodidong，Tokopedia的扩张也十分迅猛，值得注意。</p>
+<h1 id="Part-3-产品功能结构分析"><a href="#Part-3-产品功能结构分析" class="headerlink" title="Part 3 产品功能结构分析"></a>Part 3 产品功能结构分析</h1><h2 id="3-1-Shopee-MY-移动端应用"><a href="#3-1-Shopee-MY-移动端应用" class="headerlink" title="3.1 Shopee MY-移动端应用"></a>3.1 Shopee MY-移动端应用</h2><p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Shopee%E4%B9%B0%E5%AE%B6%E5%8A%9F%E8%83%BD%E7%BB%93%E6%9E%84.png"></p>
+<p>在体验了Shopee的移动端应用后，以下两个模块是最直观能感受到的与淘宝的不同。</p>
+<h3 id="3-1-1-重促销及优惠券发放"><a href="#3-1-1-重促销及优惠券发放" class="headerlink" title="3.1.1 重促销及优惠券发放"></a>3.1.1 重促销及优惠券发放</h3><ol>
+<li><p><strong>金刚区促销优惠发放专区及小游戏</strong></p>
+<p> 在Shopee首页的金刚区展示位，放置了10% Cashback，Shopee Prizes，1 Deals，25% Daily brand discounts等优惠折扣券的固定入口，让价格敏感型的用户能够在进入应用，想”逛“的时候，能够快速吸引这部分流量，出于用了就能”占便宜“，不用好像就亏了的心态，刺激消费者下单。</p>
+</li>
+<li><p><strong>新人欢迎礼包</strong></p>
+<p> 新用户点击进入Shopee App后，首先会弹出优惠礼包领取弹窗。同时，在首页金刚区下方也有专门的新人优惠券领取专区，在此专区用户不仅能领取消费抵扣券，同时也能够领取免费商品，免费商品包括实物以及一些品牌的抵扣券（如肯德基，充话费，星巴克等的抵扣券）</p>
+</li>
+<li><p><strong>限时抢购专区</strong></p>
+<p> 在新人优惠下方是限时抢购专区，在此区域展示的商品卡片中包含折扣力度，剩余数量，已售数量等交易信息，通过倒计时以及这些交易信息来刺激用户的消费欲望，在抢购专区的消费路径省去了加购步骤，缩短用户付费的决策流程，促进下单转化</p>
+</li>
+<li><p><strong>小游戏</strong></p>
+<p> 在Shopee Prizes模块，买家可以通过玩农场游戏、转盘等休闲游戏获取折扣券或者是Shopee Coin。此外，Shopee还为商家提供了商店游戏，商家通过平台完成配置之后能够使用商店游戏来吸引买家并释放优惠券。</p>
+<p> 在通过游戏领取了优惠券后，用户会将这些券看作自己的沉没成本（付出了时间和玩游戏的努力），因此能够刺激用户去使用优惠券，优惠券的使用率变高了也就意味着下单转化可能也会因此提升。此外，内置一些长期的经营类小游戏也能很好的培养用户打开应用的习惯，获得更多商品的曝光流量，同时能够提升用户的使用粘性和平均使用时长。</p>
+<p> 国内的淘宝和拼多多也都有类似的游戏内容，此外，淘宝中还有一个经营小游戏叫”小流浪旅舍“，通过与游戏内的小动物互动收集爱心值，爱心值可以对应救助现实生活中的真实流浪动物，也可以换购宠物用品。在这个小游戏中，有宠物的用户可以将自己的宠物信息登记到宠物档案中，同时可以查看宠物用品这个垂直类目下的社区种草推荐。通过这个小游戏能够收集到用户的宠物数据，可以用于丰富此用户的画像，同时也能对应的为他推荐相应的宠物用品。</p>
+</li>
+</ol>
+<h3 id="3-1-2-通过社交抓住年轻消费者"><a href="#3-1-2-通过社交抓住年轻消费者" class="headerlink" title="3.1.2 通过社交抓住年轻消费者"></a>3.1.2 通过社交抓住年轻消费者</h3><p>Shopee很早就上线了动态模块，用类似在东南亚渗透率很高的IG的交互形式，让商家能够通过图文、视频帖子的方式将产品宣传分发给可能感兴趣的潜在买家；对于买家来说，在动态流中可以持续获得新的关于商品内容，以一种熟悉的方式达到线上”逛街“的目的，同时能够货渠道其他消费者对于产品的评价，这可以降低买家的不信任感，同时基于从众心理，买家更有可能购买大家都说好的商品。而且，如果用户自己购买了称心的商品，也可以通过Shopee将商品进行分享晒贴，Shopee提供了帖子的数据分析看板，适合一些有分享欲望，愿意认真写评价的用户使用，此外，也能够通过这个模块培养带货种草的KOL。</p>
+<p>淘宝也有类似的模块-逛逛，打造淘宝站内商品的种草平台，主打图文分享，与Shopee Feeds中的探索更多类似。点击进入某一个图文分享之后，可以查看相应的商品，并且可以进入新的Feeds流。</p>
+<p>Shopee也对接了Facebook和Messenger，用户可以非常方便的将Shopee中的商品及其他宣传内容分享到社交平台中，可以基于社交链路向外传播。此外，Shopee也鼓励用户基于自己的社交关系链进行拉新，会给予成功拉新后的用户一些Shopee coin的奖励。</p>
+<h3 id="3-1-3-Shopee-Mall"><a href="#3-1-3-Shopee-Mall" class="headerlink" title="3.1.3 Shopee Mall"></a>3.1.3 Shopee Mall</h3><p>Shopee与国内知名电商应用在交互设计上有一个明显的区别，Shopee的首页导航栏中没有购物车，购物车被放在了每一个页面的右上角。目前Shopee首页导航栏的中心位置留给了Shopee Mall，从这一点也能看到Shopee要深耕B2C模式，帮助卖家建立品牌，提高客单价的决心。</p>
+<h2 id="3-2-Shopee-卖家中心"><a href="#3-2-Shopee-卖家中心" class="headerlink" title="3.2 Shopee 卖家中心"></a>3.2 Shopee 卖家中心</h2><p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Shopee%E5%8D%96%E5%AE%B6%E4%B8%AD%E5%BF%83%E7%BB%93%E6%9E%84.png"></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B0%83%E7%A0%94%E7%BB%93%E6%9E%9C/" rel="tag"># 调研结果</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/21/%E5%AE%89%E5%85%A8%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0/" rel="prev" title="安全相关概念学习">
+      <i class="fa fa-chevron-left"></i> 安全相关概念学习
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/06/21/Notion%EF%BC%9A%E4%BC%B0%E5%80%BC103%E4%BA%BF%E7%BE%8E%E5%85%83%EF%BC%8C%E6%96%B0%E7%9A%84%E7%94%9F%E4%BA%A7%E5%8A%9B%E5%B9%B3%E5%8F%B0/" rel="next" title="Notion：估值103亿美元，新的生产力平台">
+      Notion：估值103亿美元，新的生产力平台 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Shopee%E4%B8%9A%E5%8A%A1%E8%B0%83%E7%A0%94%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A"><span class="nav-number">1.</span> <span class="nav-text">Shopee业务调研分析报告</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-1-Shopee%E7%9B%AE%E6%A0%87%E5%B8%82%E5%9C%BA%E7%9A%84%E5%AE%8F%E8%A7%82%E5%9B%A0%E7%B4%A0%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">Part 1 Shopee目标市场的宏观因素分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E7%9B%AE%E6%A0%87%E5%B8%82%E5%9C%BA%E6%89%80%E5%9C%A8%E5%9C%B0%E5%8C%BA%E7%9A%84%E7%A4%BE%E4%BC%9A%E7%BB%93%E6%9E%84%E5%8F%8A%E5%8F%91%E5%B1%95%E6%83%85%E5%86%B5"><span class="nav-number">2.1.</span> <span class="nav-text">1.1 目标市场所在地区的社会结构及发展情况</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-1-%E4%B8%9C%E5%8D%97%E4%BA%9A%E5%9C%B0%E5%8C%BA"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.1.1 东南亚地区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-2-%E5%85%B6%E4%BB%96%E5%9B%BD%E5%AE%B6%E5%9C%B0%E5%8C%BA"><span class="nav-number">2.1.2.</span> <span class="nav-text">1.1.2 其他国家地区</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-2%E4%B8%AD%E5%9B%BD%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86%E5%87%BA%E5%8F%A3%E7%9A%84%E7%8E%B0%E7%8A%B6%E5%8F%8A%E7%9B%B8%E5%85%B3%E6%94%BF%E7%AD%96"><span class="nav-number">3.</span> <span class="nav-text">Part 2中国跨境电商出口的现状及相关政策</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E7%96%AB%E6%83%85%E4%B9%8B%E5%90%8E%E7%9A%84%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86%E7%8E%B0%E7%8A%B6"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 疫情之后的跨境电商现状</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-2020%E5%B9%B4%E4%B8%AD%E5%9B%BD%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86%E4%BC%98%E6%83%A0%E6%94%BF%E7%AD%96"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 2020年中国跨境电商优惠政策</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-%E4%B8%AD%E5%9B%BD%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86%E5%87%BA%E5%8F%A3%E9%9D%A2%E4%B8%B4%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 中国跨境电商出口面临的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-3-%E4%B8%9A%E5%8A%A1%E6%A8%A1%E5%BC%8F%E5%8F%8A%E7%AB%9E%E5%93%81%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">Part 3 业务模式及竞品分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Shopee%E7%9A%84%E7%9B%88%E5%88%A9%E6%B8%A0%E9%81%93%E5%88%86%E6%9E%90"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Shopee的盈利渠道分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-%E5%9C%A8%E4%B8%9C%E5%8D%97%E4%BA%9A%E7%9A%84%E8%B7%A8%E5%A2%83%E7%94%B5%E5%95%86%E7%AB%9E%E4%BA%89%E6%A0%BC%E5%B1%80"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 在东南亚的跨境电商竞争格局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-%E4%B8%8ELazada%E7%9A%84%E7%AB%9E%E4%BA%89%EF%BC%8CShopee%E7%9A%84%E7%AA%81%E5%87%BB%E4%B9%8B%E8%B7%AF"><span class="nav-number">4.2.1.</span> <span class="nav-text">3.2.1 与Lazada的竞争，Shopee的突击之路</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-%E4%B8%8D%E5%90%8C%E5%9C%B0%E5%8C%BA%E7%9A%84%E7%AB%9E%E4%BA%89%E6%83%85%E5%86%B5"><span class="nav-number">4.2.2.</span> <span class="nav-text">3.2.2 不同地区的竞争情况</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Part-3-%E4%BA%A7%E5%93%81%E5%8A%9F%E8%83%BD%E7%BB%93%E6%9E%84%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">Part 3 产品功能结构分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-Shopee-MY-%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%BA%94%E7%94%A8"><span class="nav-number">5.1.</span> <span class="nav-text">3.1 Shopee MY-移动端应用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1-%E9%87%8D%E4%BF%83%E9%94%80%E5%8F%8A%E4%BC%98%E6%83%A0%E5%88%B8%E5%8F%91%E6%94%BE"><span class="nav-number">5.1.1.</span> <span class="nav-text">3.1.1 重促销及优惠券发放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2-%E9%80%9A%E8%BF%87%E7%A4%BE%E4%BA%A4%E6%8A%93%E4%BD%8F%E5%B9%B4%E8%BD%BB%E6%B6%88%E8%B4%B9%E8%80%85"><span class="nav-number">5.1.2.</span> <span class="nav-text">3.1.2 通过社交抓住年轻消费者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-3-Shopee-Mall"><span class="nav-number">5.1.3.</span> <span class="nav-text">3.1.3 Shopee Mall</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Shopee-%E5%8D%96%E5%AE%B6%E4%B8%AD%E5%BF%83"><span class="nav-number">5.2.</span> <span class="nav-text">3.2 Shopee 卖家中心</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Calcifer Liao"
+      src="/images/WechatIMG548.jpeg">
+  <p class="site-author-name" itemprop="name">Calcifer Liao</p>
+  <div class="site-description" itemprop="description">小名儿叫九虎</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KateLiao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KateLiao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://bead-individual-0e6.notion.site/831456a9e21c4084ac70e3e001af52e1?v=592a23232c12433e88d6294c47f6e3e8" title="读书 → https:&#x2F;&#x2F;bead-individual-0e6.notion.site&#x2F;831456a9e21c4084ac70e3e001af52e1?v&#x3D;592a23232c12433e88d6294c47f6e3e8" rel="noopener" target="_blank"><i class="fa fa-book fa-fw"></i>读书</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Calcifer Liao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">36k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">33 分钟</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
