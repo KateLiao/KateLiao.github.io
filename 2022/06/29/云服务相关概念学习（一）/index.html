@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="云计算：一种资源交付与使用方式，用户可以通过互联网获取自身所需要的IT资，就像是水、电、煤气这样的资源一样，云计算资源也可以做到打开即可享受服务，不需要时就关闭。 云计算的五大特征： 广泛的互联网接入 按需自取：即使在你不需要资源时，服务资源也随时待命；当你需要资源时，及时出现用户高峰，体验也不会收到影响 资源池和虚拟化 快速弹性：共享资源池，实现水平扩展性 服务可计量    RESTful和云">
+<meta property="og:type" content="article">
+<meta property="og:title" content="云服务相关概念学习（一）">
+<meta property="og:url" content="http://example.com/2022/06/29/%E4%BA%91%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/index.html">
+<meta property="og:site_name" content="九虎的田野调查">
+<meta property="og:description" content="云计算：一种资源交付与使用方式，用户可以通过互联网获取自身所需要的IT资，就像是水、电、煤气这样的资源一样，云计算资源也可以做到打开即可享受服务，不需要时就关闭。 云计算的五大特征： 广泛的互联网接入 按需自取：即使在你不需要资源时，服务资源也随时待命；当你需要资源时，及时出现用户高峰，体验也不会收到影响 资源池和虚拟化 快速弹性：共享资源池，实现水平扩展性 服务可计量    RESTful和云">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/%E4%BA%91%E5%A0%86%E6%A0%88%E7%BB%93%E6%9E%84.png">
+<meta property="article:published_time" content="2022-06-29T15:48:05.000Z">
+<meta property="article:modified_time" content="2022-06-29T15:49:17.106Z">
+<meta property="article:author" content="Calcifer Liao">
+<meta property="article:tag" content="云计算">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/%E4%BA%91%E5%A0%86%E6%A0%88%E7%BB%93%E6%9E%84.png">
+
+<link rel="canonical" href="http://example.com/2022/06/29/%E4%BA%91%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>云服务相关概念学习（一） | 九虎的田野调查</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">九虎的田野调查</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-主页">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a>
+
+  </li>
+        <li class="menu-item menu-item-标签">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-分类">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-归档">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-关于我">
+
+    <a href="/about/" rel="section"><i class="fa fa-paw fa-fw"></i>关于我</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/06/29/%E4%BA%91%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3%E6%A6%82%E5%BF%B5%E5%AD%A6%E4%B9%A0%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/WechatIMG548.jpeg">
+      <meta itemprop="name" content="Calcifer Liao">
+      <meta itemprop="description" content="小名儿叫九虎">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九虎的田野调查">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          云服务相关概念学习（一）
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-06-29 23:48:05 / 修改时间：23:49:17" itemprop="dateCreated datePublished" datetime="2022-06-29T23:48:05+08:00">2022-06-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/" itemprop="url" rel="index"><span itemprop="name">计算机科学</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E4%BA%91%E8%AE%A1%E7%AE%97/" itemprop="url" rel="index"><span itemprop="name">云计算</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <ul>
+<li><strong>云计算</strong>：一种资源交付与使用方式，用户可以通过互联网获取自身所需要的IT资，就像是水、电、煤气这样的资源一样，云计算资源也可以做到打开即可享受服务，不需要时就关闭。</li>
+<li><strong>云计算的五大特征</strong>：<ol>
+<li>广泛的互联网接入</li>
+<li>按需自取：即使在你不需要资源时，服务资源也随时待命；当你需要资源时，及时出现用户高峰，体验也不会收到影响</li>
+<li>资源池和虚拟化</li>
+<li>快速弹性：共享资源池，实现水平扩展性</li>
+<li>服务可计量</li>
+</ol>
+</li>
+</ul>
+<h2 id="RESTful和云计算的关系"><a href="#RESTful和云计算的关系" class="headerlink" title="RESTful和云计算的关系"></a>RESTful和云计算的关系</h2><blockquote>
+<p>REST stands for Representation State Transfer</p>
+</blockquote>
+<p>RESTful服务是云计算的关键，REST架构的四个约束:</p>
+<ol>
+<li>区分资源和表述：资源和表述要区分开，资源可能是一个代码片段，表述可能是XML、JSON、或者HTML页面</li>
+<li>通过表述来操作资源：当client有权限时，可以通过带有meta data的表述，去操作资源</li>
+<li>自描述信息：每条信息要告诉服务器应该怎么处理自己（消息）</li>
+<li>以超媒体作为应用状态的引擎：client只通过超媒体（例如：超链接）来与应用程序进行交互，表述反映了超媒体应用的当前状态。</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="云计算的堆栈结构"><a href="#云计算的堆栈结构" class="headerlink" title="云计算的堆栈结构"></a>云计算的堆栈结构</h2><p>云堆栈包含四大类，自顶向下分别是：</p>
+<ul>
+<li>用户：登录、注册、管理</li>
+<li>应用：认证、授权、用户界面、事务处理、报告、控制面板</li>
+<li>应用堆栈：操作系统、编程语言、应用服务器、中间件、数据库、监听、缓存、队列…</li>
+<li>基础设施：数据中心、存储设备、网络基础设施…</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/%E4%BA%91%E5%A0%86%E6%A0%88%E7%BB%93%E6%9E%84.png" alt="云堆栈"></p>
+<h2 id="云计算的服务模式"><a href="#云计算的服务模式" class="headerlink" title="云计算的服务模式"></a>云计算的服务模式</h2><p>不同层次云计算服务抽象了不同的资源，减轻了用户在搭建部署应用时的操作步骤。根据抽象层次的不同，云计算的服务模式主要有以下几类：</p>
+<ul>
+<li>IaaS：只提供硬件资源（基础设施），开发环境运行环境需要自己配置</li>
+<li>PaaS：提供硬件资源+开发环境（应用堆栈），在上面开发部署自己的业务应用即可</li>
+<li>SaaS：提供硬件资源+软件资源（应用），用户完成配置，并通过验证鉴权登录之后，开箱即用的服务<br>每一种云服务模式通过对于部分资源的抽象，来减轻消费者构建和部署系统的复杂性。</li>
+</ul>
+<h2 id="云服务的部署方式"><a href="#云服务的部署方式" class="headerlink" title="云服务的部署方式"></a>云服务的部署方式</h2><p>不同的部署方式的差别：主要在维护、价格、安全性和资源的掌握程度四块。</p>
+<ol>
+<li>公有云：所有客户的数据存储和运行都在一台机器上，没有物理隔离，这种部署方式的价格相对来说较低<br> 公共云服务的例子包括谷歌打印（Google Print）、谷歌文档（Google Docs）、微软办公365（Microsoft Office 365）、亚马逊弹性云计算（Amazon EC2）和亚马逊云播放（Amazon Cloud Player）等，这些服务都使用月度运营支出价格模型，用户无须承担或只须少量承担前端资本开支。</li>
+<li>私有云：为自己的数据购买单独的存储，有独立隔离的防火墙，购买了私有云部署方式的客户的IT团队可以在防火墙内对自己的资源进行操作调度，资源不需要和其他人共享，降低了有关数据所有权、隐私和安全方面的一些监管风险。</li>
+<li>混合云：结合了公有云和私有云两种方式，需要更高隐私合规要求的数据存储在私有云中，普通数据则放在公有云中。</li>
+<li>社群云<br> 社区云是私有云的扩展版本，为一个具有共同利益或共同关注点的社群提供支持，此处所说的共同关注点可能包括安全要求、数据私密、监管环境、商业模型、终端用户等。社区云可能按地理位置划定范围，例如欧盟社区云、北美云；也可能以贸易领域来划定范围，如东盟（ASEAN）社区云或金砖四国（BRIC）社区云。“贸易”这一概念非常有趣，它能被延伸理解为不同的行业或商业群体：纸业云、出版业云、银行监管云、健康产业云，既可以限于一个国家内（比如美国健康社区云），也可以是全球化范围（比如世界健康社区云），参与者可以是监管主体、医疗服务提供方、医师、消费者，或其任意组合。</li>
+</ol>
+<h2 id="企业选择云服务时需要考虑的因素"><a href="#企业选择云服务时需要考虑的因素" class="headerlink" title="企业选择云服务时需要考虑的因素"></a>企业选择云服务时需要考虑的因素</h2><p>在选择不同的云服务模式时，应该从以下几个方面考虑每种模式的可行性：</p>
+<ol>
+<li>技术<br>技术是指：性能、扩展性、安全性、监管、业务可持续性、灾难恢复等。</li>
+<li>财务<br>财务指整体购置成本，新项目上云构建成本较小，要将方案迁移至云端或者是遗留架构会限制应用时，财务成本可能较高。</li>
+<li>战略<br>如果不希望增加很多的IT人力成本，那么SaaS是较好的选择，底层架构和基础设施对于用户是一种抽象概念，他们无需操行；如果要能够对底层的基础设施有更多的管控权，那么IaaS比较合适。</li>
+<li>组织<br>组织内是否有相应的技术人员，越往云堆栈的底层走，所需要技术人员的能力就越高。</li>
+<li>风险<br>监管合规风险，安全泄漏风险，数据容灾风险等等，在选择云服务模式时也需要考虑</li>
+</ol>
+<ul>
+<li><p>云中审计<br>对于拥有数据的公司来说，维护数据安全的职责完全属于公司自己。如果公司选择的技术方案包含云端架构的话，保护数据安全的部分责任将转移给云服务提供商，但CSP主要还是提供安全和合规的云服务，保护整体应用安全的仍然是公司本身。在这种情况下，对整个解决方案进行审计会涉及多个实体（云服务消费者、云服务提供者）<br>审计的职责是，确保流程和控制，进行检查做出评估，确认委托人满足适用法律所规定的相关约束要求。</p>
+</li>
+<li><p>遗留系统上云可能存在的问题<br>遗留系统很多对ACID（Atomic，Consistent，isolate，durable）事务有依赖，设计时就以运行在单独分区为目的，预期数据保持一致性。<br>而云端架构是依赖BASE（Basically Available，Soft State，Eventually Consistent）事务要求分区有容错性，当一个计算资源的实例不能完成任务时，会调动另一个实例去完成，最终差异将被调节。<br>因此，遗留系统上云时，需要对架构进行云化处理，如果不更改原架构直接上云，那会导致无法实现云计算的弹性、按需自取等特性，只是实现了系统的云上托管，实际上还是一个单分区的系统。</p>
+</li>
+</ul>
+<h2 id="什么是虚拟化？"><a href="#什么是虚拟化？" class="headerlink" title="什么是虚拟化？"></a>什么是虚拟化？</h2><blockquote>
+<p>虚拟化是实现云计算“按需自助”、“快速弹性”、“可计算的服务量”这几个特征的技术手段</p>
+</blockquote>
+<p>虚拟化：云计算的根基，分为服务器虚拟化和应用程序虚拟化两块。</p>
+<ul>
+<li><p><strong>应用程序虚拟化</strong><br>指将一台主机上的应用程序分享给大量用户使用，虽然上载到云端的应用程序需要高端虚拟机来运行，但由于访问用户数量众多，成本得以分摊。这样，应用程序就能以较为便宜的价格分发给终端用户，这些用户不必为了运行程序而配置高端硬件，一台廉价机器——比如一个低端工作站或一个“瘦客户端”——就足够了。如果虚拟应用使用的数据也存储在云端，用户甚至不必受设备或地点的约束，可以随时随地使用应用程序或者访问数据。在这种情况下，终端用户的典型使用方式是通过移动应用或互联网浏览器。</p>
+</li>
+<li><p><strong>服务器虚拟化</strong><br>以常用的物理硬件（网络、存储或计算设备）来托管虚拟机。一台物理主机可以运行多台虚拟机，不同虚拟机共用一套硬件，但能安装独立的操作系统和不同应用程序。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E4%BA%91%E8%AE%A1%E7%AE%97/" rel="tag"># 云计算</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/06/22/Empowered%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" rel="prev" title="Empowered阅读笔记（三）">
+      <i class="fa fa-chevron-left"></i> Empowered阅读笔记（三）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RESTful%E5%92%8C%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">1.</span> <span class="nav-text">RESTful和云计算的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9A%84%E5%A0%86%E6%A0%88%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">云计算的堆栈结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%91%E8%AE%A1%E7%AE%97%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">云计算的服务模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%91%E6%9C%8D%E5%8A%A1%E7%9A%84%E9%83%A8%E7%BD%B2%E6%96%B9%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">云服务的部署方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%81%E4%B8%9A%E9%80%89%E6%8B%A9%E4%BA%91%E6%9C%8D%E5%8A%A1%E6%97%B6%E9%9C%80%E8%A6%81%E8%80%83%E8%99%91%E7%9A%84%E5%9B%A0%E7%B4%A0"><span class="nav-number">5.</span> <span class="nav-text">企业选择云服务时需要考虑的因素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%99%9A%E6%8B%9F%E5%8C%96%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">什么是虚拟化？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Calcifer Liao"
+      src="/images/WechatIMG548.jpeg">
+  <p class="site-author-name" itemprop="name">Calcifer Liao</p>
+  <div class="site-description" itemprop="description">小名儿叫九虎</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/KateLiao" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;KateLiao" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://bead-individual-0e6.notion.site/831456a9e21c4084ac70e3e001af52e1?v=592a23232c12433e88d6294c47f6e3e8" title="读书 → https:&#x2F;&#x2F;bead-individual-0e6.notion.site&#x2F;831456a9e21c4084ac70e3e001af52e1?v&#x3D;592a23232c12433e88d6294c47f6e3e8" rel="noopener" target="_blank"><i class="fa fa-book fa-fw"></i>读书</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Calcifer Liao</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">44k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">40 分钟</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
