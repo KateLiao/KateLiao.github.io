@@ -20,22 +20,32 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="本文主要介绍自然语言处理中的常见任务有哪些，参考材料为李宏毅教授的课程  NLP任务中的两大分类假设将NLP看作一个黑匣子，把任务按照黑匣子的能力分类，可以分成两大类：  输入一段文字，输出一段文字 输入一段文字，输出分类结果   Input:文字  Output:文字｜类别  NLP的黑匣子中是各种各样的NLP模型，各自处理着不同场景下的不同任务：  对于模型输入来说，文字的输入也可能有多种形">
+  <meta name="description" content="idea：  将所有word都project到一个high dimensional space（但是这个“high”也远比1-of-N的维度低的多）上 Embedding中的每一个dimension都有自己的含义   Word Embedding是一种无监督式学习，只需要让模型阅读大量的文本资料，模型就能学习怎么将如何用vector表示所有单词学习出来。  那怎么找到这样的function去训练模">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NLP中的任务分类">
-<meta property="og:url" content="http://example.com/2022/08/12/NLP%E4%B8%AD%E7%9A%84%E4%BB%BB%E5%8A%A1%E5%88%86%E7%B1%BB/index.html">
+<meta property="og:title" content="Word Embedding Note">
+<meta property="og:url" content="http://example.com/2022/08/29/Word-Embedding-Note/index.html">
 <meta property="og:site_name" content="九虎的田野调查">
-<meta property="og:description" content="本文主要介绍自然语言处理中的常见任务有哪些，参考材料为李宏毅教授的课程  NLP任务中的两大分类假设将NLP看作一个黑匣子，把任务按照黑匣子的能力分类，可以分成两大类：  输入一段文字，输出一段文字 输入一段文字，输出分类结果   Input:文字  Output:文字｜类别  NLP的黑匣子中是各种各样的NLP模型，各自处理着不同场景下的不同任务：  对于模型输入来说，文字的输入也可能有多种形">
+<meta property="og:description" content="idea：  将所有word都project到一个high dimensional space（但是这个“high”也远比1-of-N的维度低的多）上 Embedding中的每一个dimension都有自己的含义   Word Embedding是一种无监督式学习，只需要让模型阅读大量的文本资料，模型就能学习怎么将如何用vector表示所有单词学习出来。  那怎么找到这样的function去训练模">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/NLP-tasks.jpg">
-<meta property="article:published_time" content="2022-08-12T03:38:54.000Z">
-<meta property="article:modified_time" content="2022-08-12T03:41:18.279Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%201.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%202.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%203.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%204.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%205.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%206.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%207.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%208.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%209.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%2010.png">
+<meta property="article:published_time" content="2022-08-29T08:55:10.000Z">
+<meta property="article:modified_time" content="2022-08-29T08:57:51.832Z">
 <meta property="article:author" content="Calcifer Liao">
 <meta property="article:tag" content="NLP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/NLP-tasks.jpg">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled.png">
 
-<link rel="canonical" href="http://example.com/2022/08/12/NLP%E4%B8%AD%E7%9A%84%E4%BB%BB%E5%8A%A1%E5%88%86%E7%B1%BB/">
+<link rel="canonical" href="http://example.com/2022/08/29/Word-Embedding-Note/">
 
 
 <script id="page-configurations">
@@ -48,7 +58,7 @@
   };
 </script>
 
-  <title>NLP中的任务分类 | 九虎的田野调查</title>
+  <title>Word Embedding Note | 九虎的田野调查</title>
   
 
 
@@ -168,7 +178,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/12/NLP%E4%B8%AD%E7%9A%84%E4%BB%BB%E5%8A%A1%E5%88%86%E7%B1%BB/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/29/Word-Embedding-Note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/WechatIMG548.jpeg">
@@ -181,7 +191,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          NLP中的任务分类
+          Word Embedding Note
         </h1>
 
         <div class="post-meta">
@@ -192,7 +202,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-08-12 11:38:54 / 修改时间：11:41:18" itemprop="dateCreated datePublished" datetime="2022-08-12T11:38:54+08:00">2022-08-12</time>
+              <time title="创建时间：2022-08-29 16:55:10 / 修改时间：16:57:51" itemprop="dateCreated datePublished" datetime="2022-08-29T16:55:10+08:00">2022-08-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -221,14 +231,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -240,40 +250,63 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <blockquote>
-<p>本文主要介绍自然语言处理中的常见任务有哪些，参考材料为李宏毅教授的课程</p>
-</blockquote>
-<h2 id="NLP任务中的两大分类"><a href="#NLP任务中的两大分类" class="headerlink" title="NLP任务中的两大分类"></a>NLP任务中的两大分类</h2><p>假设将NLP看作一个黑匣子，把任务按照黑匣子的能力分类，可以分成两大类：</p>
-<ol>
-<li>输入一段文字，<strong>输出一段文字</strong></li>
-<li>输入一段文字，<strong>输出分类结果</strong></li>
-</ol>
-<blockquote>
-<p>Input:文字<br>  Output:文字｜类别</p>
-</blockquote>
-<p>NLP的黑匣子中是各种各样的NLP模型，各自处理着不同场景下的不同任务：</p>
+        <p><strong>idea</strong>：</p>
 <ul>
-<li>对于模型输入来说，文字的输入也可能有多种形式</li>
-<li>对于模型输出，输出的类别既可以是对整个sequence的分类标签，也可以是针对句子中某一个组成元素的分类标签</li>
+<li>将所有word都project到一个high dimensional space（但是这个“high”也远比1-of-N的维度低的多）上</li>
+<li>Embedding中的每一个dimension都有自己的含义</li>
 </ul>
-<h3 id="将NLP任务基于模型的输入输出分类"><a href="#将NLP任务基于模型的输入输出分类" class="headerlink" title="将NLP任务基于模型的输入输出分类"></a>将NLP任务基于模型的输入输出分类</h3><blockquote>
-<p>Input: One Sequence| Multiple Sequences<br>Output: One Class| Class for each token| Copy from Input| …</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/NLP-tasks.jpg" alt="NLP-classes"></p>
-<p><strong>1. POS part of Speech Tagging</strong><br>   给所有的词标注词性，输入为一段文本（sequence），输出为此文本中所有单词及对应的词性（class for each token）<br><strong>2. Word Segmentation</strong><br>   对于中文来说，有时候是需要的，因为中文不像英文有空格这个天然的分词符号，分词有时候是有歧义的。但是Bert模型的出现，说明分词可能不太需要（Bert将所有字单独拆为一个个token，而不是用词当token）<br><strong>3. Parsing</strong><br>   输入：一个句子；输出：一个树状结构<br>   分类：Constituency Parsing｜Dependency Parsing<br>   Parsing的结果通常会作为downstream任务的额外feature input</p>
-<span id="more"></span>
-
-<p><strong>4. Coreference Resolution 指代消解</strong><br>   和parsing一样，通常作为downstream任务的额外feature input<br><strong>5. Summarization 生成摘要</strong><br>   类型1: Extractive Summarization，在文章中找到合适的句子，拼接成summary。Input：Sequence；Output：class for token（sentence）<br>   类型2:Abstractive summarization，seq2seq任务，input为长句子，output为短句子<br><strong>6. Machine Translation</strong><br>    Unsupervised machine translation is a critical research direction.因为世界上有7000+语言，要收集不同语言之间的映射，作为模型的有监督训练是不实际的。<br><strong>7. Grammar Error Correction</strong><br>   也是一个seq2seq任务。当然，也可以用token classifier来做，output就是每一个token的类别:[不用改，要改，要在后面增加内容]<br><strong>8. sentiment classification</strong><br>   输入一段文字，判断情感是偏正面还是负面<br>   input：sequence；output：class；<br>   常用场景：商品、电影等的评价。<br><strong>9. Stance Detection</strong><br>    立场鉴别：support、deny、Querying、Commenting（SDQC）<br>    input：2 sequences；output：class；<br><strong>10. Veracity Prediction</strong><br>    判断信息的真伪<br>    input：several sequences；output：class；<br><strong>11. Natural Language Inference（NLI）</strong><br>    premise：一个前提<br>    Hypothesis：假设<br>    让Model经过一个premise，判断hypnosis成不成立，model输出通常为三类：contradiction、entailment（蕴含）、neutral（中性）<br><strong>12. Search Engine</strong><br>    Bert据说已经用在Google搜索里面了。<br><strong>13. Question Answering</strong><br>    传统的QA（非end2end模型）处理流程：<br>    1. Question processing：对问题文本进行分词、命名实体标注、关系提取、指代消解等处理；<br>    2. Document and passage retrieval：从数据库中基于标签、index等信息通过TF-IDF等算法找到相关的文章和段落<br>    3. 经过Answer type detection的过滤，得到最终的结果即使是end2end的QA应用，目前也还没有做到让模型理解input sequence然后生成output answer sequence，而是在input question,document中提取出answer，即document中已经包含了answer。</p>
-<p><strong>14. <strong>Dialogue 对话系统</strong></strong><br>    <strong>14.1  Chatting 闲聊</strong><br>        input: several sequences;<br>        output: sequence;<br>        同时，我们希望chatbot不仅仅是基于过去的对话生成新的对话，我们可能还会希望面对不同的用户，chatbot能有不同人格的回复，会有一些同理心等等。<br>    <strong>14.2  Task-oriented 任务式对话系统</strong><br>        通常使用在订票、人工客服等场景下。模型需要获得完成任务的关键信息，然后基于获得的关键信息进行对话响应和任务执行。</p>
-<p><strong>15. 知识图谱</strong><br>    它就是一种图结构，其中的节点是实体，节点之间的有向边是关系。现在有一个研究方法是输入大量的文档中让机器自己输出知识图谱。解决这个问题主要有两步：1. 抽取实体 2.抽取关系</p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled.png"></p>
+<p>Word Embedding是一种无监督式学习，只需要让模型阅读大量的文本资料，模型就能学习怎么将如何用vector表示所有单词学习出来。</p>
 <blockquote>
-<p>额外延伸——自然语言处理的难点在哪里？</p>
-<ol>
-<li>自然语言千变万化，没有固定格式，同样的意思可以使用多种句势来表达</li>
-<li>不断有新的词汇出现，机器需要不断的学习</li>
-<li>在不同的上下文语境下，同一句话表达的意思可能不一样</li>
-</ol>
+<p><strong>那怎么找到这样的function去训练模型 exploit the context？<br>有以下两种思路：（1）count based；（2）prediction based；</strong></p>
 </blockquote>
+<h2 id="Count-Based"><a href="#Count-Based" class="headerlink" title="Count Based"></a>Count Based</h2><p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%201.png"></p>
+<p>让Word w_i和w_j的向量乘积能够近似于w_i和w_j共同出现的document数量。</p>
+<h2 id="Prediction-Based"><a href="#Prediction-Based" class="headerlink" title="Prediction Based"></a><strong>Prediction Based</strong></h2><ol>
+<li><p><strong>given a word, predict 下一个word是什么</strong></p>
+<p> <strong>input</strong>: 词汇的 1-of-N encoding</p>
+<p> <strong>output</strong>: 概率分布vector，dim&#x3D;N</p>
+<p> 完成训练后，模型是中间的hidden layer-z。因为不同的w_i作为input放进模型的时候，对应的z_i不同，可以用z_i表示w_i.</p>
+<p> <img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%202.png"></p>
+<blockquote>
+<p>prediction-based为什么可以学习到context信息？</p>
+</blockquote>
+<p> 下面的例子（抛开政治含义）是说：如果training data中，两个人名后面跟着的word一致，那么模型需要让两个人名作为input的时候，输出的probability distribution vector应该要差不多，才能保证预测的下一个词是一样的。<br> <span id="more"></span><br> 那么，为了实现这一点，中间的hidden layer就会倾向于将两个人名project到一个比较接近的空间，这样就能实现context的捕捉</p>
+<p> <img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%203.png">
+ </p>
+</li>
+<li><p><strong>given 2 words, predict 下一个词是什么</strong></p>
+</li>
+</ol>
+<ul>
+<li><p><strong>Prediction-based-Sharing Parameters</strong></p>
+<p>  <strong>idea</strong>：只用一个词去预测下一个词可能不可靠，应该用多个词一起去预测下一个词</p>
+<p>  <img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%204.png"></p>
+<p>  <img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%205.png"></p>
+<ul>
+<li>在上图中，为了保证w_i, w_j保持一致（共享权重），需要：<ol>
+<li>初始化一致</li>
+<li>在更新参数w_i时，不仅更新w_i本身的偏微分，还会更新w_j的偏微分，更新w_j时同理</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Prediction-Based-Training-methods"><a href="#Prediction-Based-Training-methods" class="headerlink" title="Prediction Based Training methods"></a>Prediction Based Training methods</h3><h4 id="1-Basic"><a href="#1-Basic" class="headerlink" title="1. Basic"></a>1. Basic</h4><p><strong>Input</strong>：两个相邻词的1-of-n encoding</p>
+<p><strong>Output</strong>: 概率分布vector，dim&#x3D;N</p>
+<p><strong>Loss</strong>：概率分布vector与下一个词的1-of-n encoding的cross entrophy</p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%206.png"></p>
+<h4 id="2-CBOW-Continuous-bag-of-word-model"><a href="#2-CBOW-Continuous-bag-of-word-model" class="headerlink" title="2. CBOW-Continuous bag of word model"></a>2. CBOW-Continuous bag of word model</h4><p><strong>思路</strong>：用w_i-1, w_i+1去预测w_i</p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%207.png"></p>
+<h4 id="3-Skip-gram"><a href="#3-Skip-gram" class="headerlink" title="3. Skip-gram"></a>3. Skip-gram</h4><p><strong>思路</strong>：给一个词w_i，去预测上下文w_i-1, w_i+1</p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%208.png"></p>
+<h2 id="Word-Embedding一些有趣的特性"><a href="#Word-Embedding一些有趣的特性" class="headerlink" title="Word Embedding一些有趣的特性"></a>Word Embedding一些有趣的特性</h2><p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%209.png"></p>
+<ol>
+<li><p><strong>左图</strong>：国家和其首都的vector之间的联系很相像，所以可以做有趣的计算，如：(China-Japan)+ tokyo&#x3D;Beijing，或者像下图一样，计算Berlin是哪个国家的首都<br> <img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%2010.png"></p>
+</li>
+<li><p><strong>右图</strong>：一个单词的不同时态的vector构成的三角形很相似</p>
+</li>
+</ol>
 
     </div>
 
@@ -292,13 +325,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2022/07/14/%E6%A2%81%E6%B0%B8%E5%AE%89%EF%BC%9A%E9%98%85%E8%AF%BB%E3%80%81%E6%B8%B8%E5%8E%86%E5%92%8C%E7%88%B1%E6%83%85-%E9%98%85%E8%AF%BB%E7%AC%94%E8%AE%B0/" rel="prev" title="梁永安：阅读、游历和爱情-阅读笔记">
-      <i class="fa fa-chevron-left"></i> 梁永安：阅读、游历和爱情-阅读笔记
+    <a href="/2022/08/12/NLP%E4%B8%AD%E7%9A%84%E4%BB%BB%E5%8A%A1%E5%88%86%E7%B1%BB/" rel="prev" title="NLP中的任务分类">
+      <i class="fa fa-chevron-left"></i> NLP中的任务分类
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/08/29/Word-Embedding-Note/" rel="next" title="Word Embedding Note">
-      Word Embedding Note <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -358,7 +388,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#NLP%E4%BB%BB%E5%8A%A1%E4%B8%AD%E7%9A%84%E4%B8%A4%E5%A4%A7%E5%88%86%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">NLP任务中的两大分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86NLP%E4%BB%BB%E5%8A%A1%E5%9F%BA%E4%BA%8E%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA%E5%88%86%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">将NLP任务基于模型的输入输出分类</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Count-Based"><span class="nav-number">1.</span> <span class="nav-text">Count Based</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Prediction-Based"><span class="nav-number">2.</span> <span class="nav-text">Prediction Based</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Prediction-Based-Training-methods"><span class="nav-number">2.1.</span> <span class="nav-text">Prediction Based Training methods</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Basic"><span class="nav-number">2.1.1.</span> <span class="nav-text">1. Basic</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-CBOW-Continuous-bag-of-word-model"><span class="nav-number">2.1.2.</span> <span class="nav-text">2. CBOW-Continuous bag of word model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Skip-gram"><span class="nav-number">2.1.3.</span> <span class="nav-text">3. Skip-gram</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Word-Embedding%E4%B8%80%E4%BA%9B%E6%9C%89%E8%B6%A3%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">Word Embedding一些有趣的特性</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -518,7 +548,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'KateLiao.github.io',
       owner       : 'KateLiao',
       admin       : ['KateLiao'],
-      id          : '1b7283cf4614f37fdda874760ed63488',
+      id          : '3e205373aed97368bcecff9ba20da2bf',
         language: 'zh-CN',
       distractionFreeMode: true
     });

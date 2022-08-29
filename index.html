@@ -162,6 +162,120 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/29/Word-Embedding-Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/WechatIMG548.jpeg">
+      <meta itemprop="name" content="Calcifer Liao">
+      <meta itemprop="description" content="小名儿叫九虎">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九虎的田野调查">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/08/29/Word-Embedding-Note/" class="post-title-link" itemprop="url">Word Embedding Note</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-08-29 16:55:10 / 修改时间：16:57:51" itemprop="dateCreated datePublished" datetime="2022-08-29T16:55:10+08:00">2022-08-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>idea</strong>：</p>
+<ul>
+<li>将所有word都project到一个high dimensional space（但是这个“high”也远比1-of-N的维度低的多）上</li>
+<li>Embedding中的每一个dimension都有自己的含义</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled.png"></p>
+<p>Word Embedding是一种无监督式学习，只需要让模型阅读大量的文本资料，模型就能学习怎么将如何用vector表示所有单词学习出来。</p>
+<blockquote>
+<p><strong>那怎么找到这样的function去训练模型 exploit the context？<br>有以下两种思路：（1）count based；（2）prediction based；</strong></p>
+</blockquote>
+<h2 id="Count-Based"><a href="#Count-Based" class="headerlink" title="Count Based"></a>Count Based</h2><p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%201.png"></p>
+<p>让Word w_i和w_j的向量乘积能够近似于w_i和w_j共同出现的document数量。</p>
+<h2 id="Prediction-Based"><a href="#Prediction-Based" class="headerlink" title="Prediction Based"></a><strong>Prediction Based</strong></h2><ol>
+<li><p><strong>given a word, predict 下一个word是什么</strong></p>
+<p> <strong>input</strong>: 词汇的 1-of-N encoding</p>
+<p> <strong>output</strong>: 概率分布vector，dim&#x3D;N</p>
+<p> 完成训练后，模型是中间的hidden layer-z。因为不同的w_i作为input放进模型的时候，对应的z_i不同，可以用z_i表示w_i.</p>
+<p> <img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Untitled%202.png"></p>
+<blockquote>
+<p>prediction-based为什么可以学习到context信息？</p>
+</blockquote>
+<p> 下面的例子（抛开政治含义）是说：如果training data中，两个人名后面跟着的word一致，那么模型需要让两个人名作为input的时候，输出的probability distribution vector应该要差不多，才能保证预测的下一个词是一样的。<br>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/08/29/Word-Embedding-Note/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/12/NLP%E4%B8%AD%E7%9A%84%E4%BB%BB%E5%8A%A1%E5%88%86%E7%B1%BB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1217,109 +1331,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/19/EmpoweredReadingLog01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/WechatIMG548.jpeg">
-      <meta itemprop="name" content="Calcifer Liao">
-      <meta itemprop="description" content="小名儿叫九虎">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九虎的田野调查">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/19/EmpoweredReadingLog01/" class="post-title-link" itemprop="url">Empowered阅读笔记（一）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-19 00:05:55" itemprop="dateCreated datePublished" datetime="2022-05-19T00:05:55+08:00">2022-05-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-20 11:47:04" itemprop="dateModified" datetime="2022-05-20T11:47:04+08:00">2022-05-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%A7%E5%93%81%E6%96%B9%E6%B3%95%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">产品方法论</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>561</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <div class="note primary">
-            <p>💡 Empowered ordinary people, Extraordinary products </p>
-          </div>
-
-<h2 id="开端：从不太好的公司中发现存在的问题"><a href="#开端：从不太好的公司中发现存在的问题" class="headerlink" title="开端：从不太好的公司中发现存在的问题"></a>开端：从不太好的公司中发现存在的问题</h2><ol>
-<li>对于Technology的定位和传统IT行业无异，Technology被认为是必要成本，而不是核心业务的推进器（enabler）</li>
-<li>缺少Coaching</li>
-<li>招不到他们真正需要的员工，并无力改变此现状</li>
-<li>却少inspiring, compelling product vision，通常在公司成立初期，是有vision的，但是在公司发展过程中，vision逐渐模糊或丢失，最终团队变成feature factory
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/19/EmpoweredReadingLog01/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1390,7 +1401,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">16</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1445,12 +1456,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">48k</span>
+    <span title="站点总字数">49k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">43 分钟</span>
+    <span title="站点阅读时长">44 分钟</span>
 </div>
 
         
