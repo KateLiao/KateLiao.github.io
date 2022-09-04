@@ -162,6 +162,172 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/09/04/Self-Attention-Note/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/WechatIMG548.jpeg">
+      <meta itemprop="name" content="Calcifer Liao">
+      <meta itemprop="description" content="小名儿叫九虎">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="九虎的田野调查">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2022/09/04/Self-Attention-Note/" class="post-title-link" itemprop="url">Self-Attention-Note</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2022-09-04 17:38:44 / 修改时间：17:47:34" itemprop="dateCreated datePublished" datetime="2022-09-04T17:38:44+08:00">2022-09-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/" itemprop="url" rel="index"><span itemprop="name">算法相关</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3/NLP/" itemprop="url" rel="index"><span itemprop="name">NLP</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Self-Attention"><a href="#Self-Attention" class="headerlink" title="Self-Attention"></a>Self-Attention</h1><p><strong>要解决的问题</strong>：之前的网络结构支持的输入都是一个Vector，如果Input是个vector set，而且不同的vector set大小不一样，那么网络可能无法处理</p>
+<ul>
+<li>Input：N个vector</li>
+<li>Output有以下几种：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention.png"></p>
+<ol>
+<li>N个class label（sequence labeling）</li>
+<li>1个class label</li>
+<li>N’个label，模型自己学习他要输出多少个，又称为seq2seq</li>
+</ol>
+<p><strong>Sequence Labeling</strong></p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%201.png"></p>
+<p><strong>例子一: POS 词性标注</strong></p>
+<p>要输入一个句子，句子中的每一个词用embedding vetor表示</p>
+<p>输出与输入维度一样大，是每一个input vector的分类</p>
+<p>以上述Sequnce Labeling任务举例，如果用简单的fully connected network来做，那么FC network看到上文中的两个saw，同样的input vactor，自然给出的output label是一样的，不会考虑上下文信息。</p>
+<p>当然，可以对FC稍加改造，让它通过一个window能够考虑邻居的信息，但是没有办法让FC看到全文信息后再输出（window非常非常非常大也不是不行，但是没必要，计算资源和速度会有限制）</p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%202.png"></p>
+<p>为了解决这样的问题，同时保证训练效率，可以通过Self-Attention机制来实现，让模型能够考虑全文的context</p>
+<p><strong>基本网络结构</strong>：</p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%203.png"></p>
+<p><strong>input</strong>：vector sequence（可以是真的input data，也可以是已经经过处理的hidden layer的output vactor）</p>
+<p><strong>中间 output</strong>（中间黑框的vector）：表示基于输入，充分考虑全文context后的输出vector</p>
+<ul>
+<li>Self-attention layer用于考虑全文context的信息，FC layer主要用于考虑对应位置的局部信息。</li>
+</ul>
+<h3 id="Attention计算步骤及思路"><a href="#Attention计算步骤及思路" class="headerlink" title="Attention计算步骤及思路"></a>Attention计算步骤及思路</h3><ul>
+<li><strong>首先确定self-attention layer的input、output</strong></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%204.png"></p>
+<p>给定一个vector sequence A(a1, a2, a3, a4)，输出另一个vactor sequence B(b1, b2, b3, b4)，且每一个b_i都是考虑了所有A得出的向量</p>
+<p><strong>以计算b_1说明attention的计算过程，其他的b_j计算方法同理</strong></p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%205.png"></p>
+<ol>
+<li><strong>计算其他vector与a_1的相关性</strong>（就是attention score）</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%206.png"></p>
+<p>根据a_1，找到整个sequence中有相关性的部分。通过这种机制可以不用一个大window，也能考虑到所有sequnce context包含的信息</p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%207.png"></p>
+<p>计算2个vector的<strong>相关性alpha</strong></p>
+<ol>
+<li><strong>方法1</strong>：a_i，a_j与W^q, W^k相乘后transform得到的q, k向量做点乘</li>
+<li><strong>方法2</strong>：a_i，a_j与W^q, W^k相乘后得到的q, k向量做拼接后激活，并通过W做transform</li>
+</ol>
+<p>利用上述计算方法，计算a_1与每一个a_j的attention score alpha</p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%208.png"></p>
+<blockquote>
+<p><strong>如何理解query和key？</strong></p>
+<p>答：现在我们要计算a_1与其他a_j的相关性，可以联想到搜索引擎中的query，任务就是找到与query最像的key</p>
+</blockquote>
+<ol>
+<li><strong>然后对每一个alpha进行softmax归一化，得到alpha’，这里也可以使用其他的归一化方法</strong></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%209.png"></p>
+<ol>
+<li><strong>根据alpha‘ 抽取attention中的信息，计算b_1, Attention的影响会在最终的输出b_1中体现</strong></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%2010.png"></p>
+<blockquote>
+<p><strong>如果a_1和a_2的相关性很强（attention alpha’_1,2很大），那么最终b_1的值基本上是由v_2的值决定</strong></p>
+</blockquote>
+<h3 id="从矩阵运算的角度来看Attention的计算过程"><a href="#从矩阵运算的角度来看Attention的计算过程" class="headerlink" title="从矩阵运算的角度来看Attention的计算过程"></a>从矩阵运算的角度来看Attention的计算过程</h3><p>对比RNN，self-attention机制的一大优化点在于可以并行化。通过矩阵运算的视角看Attention的计算来理解如何并行</p>
+<ol>
+<li><p><strong>通过a，得到q、k、v</strong></p>
+<p> <img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%2011.png"></p>
+</li>
+<li><p><strong>计算alpha和alpha’</strong></p>
+<p> <img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%2012.png"></p>
+</li>
+<li><p><strong>计算b</strong></p>
+<p> <img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%2013.png"></p>
+</li>
+<li><p>将上述过程在抽象一下，过程如下所示，基于输入Matrix I，经过矩阵运算后得到输出Matrix O，所需要学习的参数只有W^q, W^k，W^v</p>
+<p> <img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%2014.png"></p>
+</li>
+</ol>
+<h3 id="延伸：Multi-head-self-attention"><a href="#延伸：Multi-head-self-attention" class="headerlink" title="延伸：Multi-head self-attention"></a>延伸：Multi-head self-attention</h3><p><strong>idea</strong>：attention就是在用query在找vector之间的相关性，有时候相关性有多种类型，因此可以用不同的query来获得vector之间的不同相关性</p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%2015.png"></p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%2016.png"></p>
+<p><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/Self-Attention%2017.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2022/08/29/Word-Embedding-Note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1235,102 +1401,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/05/23/EmpoweredReadingLog02/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/WechatIMG548.jpeg">
-      <meta itemprop="name" content="Calcifer Liao">
-      <meta itemprop="description" content="小名儿叫九虎">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="九虎的田野调查">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/05/23/EmpoweredReadingLog02/" class="post-title-link" itemprop="url">Empowered阅读笔记（二）</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-05-23 18:27:46" itemprop="dateCreated datePublished" datetime="2022-05-23T18:27:46+08:00">2022-05-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-05-24 19:02:13" itemprop="dateModified" datetime="2022-05-24T19:02:13+08:00">2022-05-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E4%BA%A7%E5%93%81%E6%96%B9%E6%B3%95%E8%AE%BA/" itemprop="url" rel="index"><span itemprop="name">产品方法论</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>970</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="第一章：从伟大的公司学习到的课程"><a href="#第一章：从伟大的公司学习到的课程" class="headerlink" title="第一章：从伟大的公司学习到的课程"></a>第一章：从伟大的公司学习到的课程</h2><p>作者提到的拥有强大产品的大公司分别为：Apple, Amazon, Google, Netflix。这几个公司的领导层对于什么是leadership都有正确的认知，这也是他们能成为伟大公司的前提之一：<br><img src="https://raw.githubusercontent.com/KateLiao/BlogImageSet/main/LeadershipDefinition.jpg" alt="Leadership"></p>
-<h3 id="传统公司与强产品公司的不同"><a href="#传统公司与强产品公司的不同" class="headerlink" title="传统公司与强产品公司的不同"></a>传统公司与强产品公司的不同</h3><p>传统公司中的产品团队服务于business，客户和股东老板们会直接告诉团队他们要做什么，并且对产品需求的优先级进行划分，<strong>产品经理在这样的场景下，实际职能更像是项目经理，负责推动设计师和工程师按照预定的工期，完成功能开发测试及上线</strong>。另一方面，设计师和工程师都不需要对结果负责，于是很容易变成feature工厂，只负责实现现版本产品定下的需求，不去思考做的东西是否真的有价值。从管理方法的角度来看，这是一种command-and-control的方法。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/05/23/EmpoweredReadingLog02/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1401,7 +1471,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-count">18</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1456,12 +1526,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">49k</span>
+    <span title="站点总字数">51k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">44 分钟</span>
+    <span title="站点阅读时长">46 分钟</span>
 </div>
 
         
